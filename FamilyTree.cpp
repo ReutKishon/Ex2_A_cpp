@@ -2,7 +2,7 @@
 #include <iostream>
 #include <string>
 #include <exception>
-using namespace Family;
+using namespace family;
 using namespace std;
 
 Person::Person(string name, Gender gender)
