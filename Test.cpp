@@ -1,5 +1,7 @@
 #define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
 #include "doctest.h"
+// #define CHECK DOCTEST_CHECK
+
 #include <string>
 #include "FamilyTree.hpp"
 
@@ -96,13 +98,76 @@ TEST_CASE("check remove:")
     CHECK(T.search_person_by_name("Noa") == nullptr);
 }
 
-TEST_CASE("check remove and relation")
+TEST_CASE("Test tree 1 : check all the functions:")
 {
+    Tree tree("reut");
+    tree.addFather("reut", "shraga");
+    tree.addMother("reut", "haidi");
+    tree.addFather("shraga", "shmuel");
+    tree.addMother("shraga", "pnina");
+    tree.addFather("shmuel", "eliezer");
+    tree.addMother("shmuel", "ester");
+    tree.addMother("pnina", "rachel");
 
-    Tree T("Yossi");
+    CHECK(tree.relation("shraga").compare("father") == 0);
+    CHECK(tree.relation("haidi").compare("mother") == 0);
+    CHECK(tree.relation("shmuel").compare("grandfather") == 0);
+    CHECK(tree.relation("pnina").compare("grandmother") == 0);
+    CHECK(tree.relation("ester").compare("great-grandmother") == 0);
+    CHECK(tree.relation("rachel").compare("great-grandmother") == 0);
+    CHECK(tree.relation("eliezer").compare("great-grandfather") == 0);
+    // CHECK(tree.relation("reut").compare("me") == 0);
+    CHECK(tree.find("father") == "shraga");
+    CHECK(tree.find("mother") == "haidi");
+    CHECK(tree.find("grandfather") == "shmuel");
+    CHECK(tree.find("great-grandfather") == "eliezer");
+    CHECK(tree.find("grandmother") == "pnina");
+    CHECK((tree.find("great-grandmother") == "rachel" || tree.find("great-grandmother") == "ester"));
+    // CHECK(tree.find("me") == "reut");
+    tree.remove("shraga");
+    CHECK(tree.search_person_by_name("shraga") == nullptr);
+    CHECK(tree.search_person_by_name("shmuel") == nullptr);
+    CHECK(tree.search_person_by_name("pnina") == nullptr);
+    CHECK(tree.search_person_by_name("eliezer") == nullptr);
+    CHECK(tree.search_person_by_name("ester") == nullptr);
+    CHECK(tree.search_person_by_name("rachel") == nullptr);
+    tree.addFather("reut", "shalom");
+    CHECK(tree.find("father") == "shalom");
+}
 
-    T.addFather("Yossi", "Ben").addFather("Ben", "Shalom").addMother("Ben", "Rivka").addFather("Shalom", "Yaacov").addMother("Shalom", "Lea").addMother("Yossi", "Shira").addMother("Shira", "Ruti").addFather("Shira", "Jack").addMother("Ruti", "Nina").addFather("Ruti", "Joe").addFather("Yaacov", "Beny").addFather("Beny", "Tom").addFather("Joe", "Germy").addFather("Germy", "Danny").addMother("Lea", "Pninit").addMother("Pninit", "Nofar").addMother("Nina", "Liron").addMother("Liron", "Noa");
+TEST_CASE("Test tree 2 : check all the functions:")
+{
+    Tree tree("reut");
+    tree.addFather("reut", "shraga");
+    tree.addMother("reut", "haidi");
+    tree.addFather("haidi", "yehuda");
+    tree.addMother("haidi", "tzipi");
+    tree.addFather("yehuda", "shimshon");
+    tree.addMother("yehuda", "malca");
+    tree.addMother("tzipi", "eva");
 
-    T.remove("Shalom");
-    
+    CHECK(tree.relation("shraga").compare("father") == 0);
+    CHECK(tree.relation("haidi").compare("mother") == 0);
+    CHECK(tree.relation("yehuda").compare("grandfather") == 0);
+    CHECK(tree.relation("tzipi").compare("grandmother") == 0);
+    CHECK(tree.relation("malca").compare("great-grandmother") == 0);
+    CHECK(tree.relation("eva").compare("great-grandmother") == 0);
+    CHECK(tree.relation("shimshon").compare("great-grandfather") == 0);
+    // CHECK(tree.relation("reut").compare("me") == 0);
+    CHECK(tree.find("father") == "shraga");
+    CHECK(tree.find("mother") == "haidi");
+    CHECK(tree.find("grandfather") == "yehuda");
+    CHECK(tree.find("great-grandfather") == "shimshon");
+    CHECK(tree.find("grandmother") == "tzipi");
+    CHECK((tree.find("great-grandmother") == "eva" || tree.find("great-grandmother") == "malca"));
+    // CHECK(tree.find("me") == "reut");
+    tree.remove("haidi");
+    CHECK(tree.search_person_by_name("haidi") == nullptr);
+    CHECK(tree.search_person_by_name("yehuda") == nullptr);
+    CHECK(tree.search_person_by_name("tzipi") == nullptr);
+    CHECK(tree.search_person_by_name("shimshon") == nullptr);
+    CHECK(tree.search_person_by_name("malca") == nullptr);
+    CHECK(tree.search_person_by_name("eva") == nullptr);
+    tree.addMother("reut", "sara");
+    CHECK(tree.find("mother") == "sara");
 }
