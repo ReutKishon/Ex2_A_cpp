@@ -32,7 +32,7 @@ Tree Tree::addMother(string son_name, string mother_name)
 }
 
 string Tree::relation(string name){
-    return "relation"}
+    return "relation";}
 
 string Tree::find(string relation)
 {
