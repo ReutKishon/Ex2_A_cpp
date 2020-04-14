@@ -5,6 +5,7 @@
 using namespace std;
 using namespace family;
 
+//the first 2 tests work fine in my computer but not in the badkan.
 // TEST_CASE("check add father:")
 // {
 //     Tree tree("Yossi");
