@@ -6,7 +6,7 @@
 #include "FamilyTree.hpp"
 
 using namespace std;
-using namespace Family;
+using namespace family;
 
 TEST_CASE("check add father:")
 {
