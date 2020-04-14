@@ -2,7 +2,7 @@
 #define FAMILYTREE_H_
 #include <string>
 
-namespace Family
+namespace family
 {
 class Person;
 class Tree;
@@ -12,9 +12,9 @@ enum Gender
     female,
     unknown
 };
-} // namespace Family
+} // namespace family
 
-class Family::Person
+class family::Person
 {
 public:
     std::string name;
@@ -24,7 +24,7 @@ public:
     Person(std::string name, Gender gender = Gender::unknown);
 };
 
-class Family::Tree
+class family::Tree
 {
 public:
     Person *root;
