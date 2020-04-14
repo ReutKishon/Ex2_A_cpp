@@ -1,7 +1,4 @@
-#define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
 #include "doctest.h"
-// #define CHECK DOCTEST_CHECK
-
 #include <string>
 #include "FamilyTree.hpp"
 
