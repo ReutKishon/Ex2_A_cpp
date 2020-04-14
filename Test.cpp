@@ -168,3 +168,45 @@ TEST_CASE("Test tree 2 : check all the functions:")
     tree.addMother("reut", "sara");
     CHECK(tree.find("mother") == "sara");
 }
+
+TEST_CASE("Test tree 2 : check all the functions:")
+{
+    Tree tree("amit");
+    tree.addFather("amit", "gabi");
+    tree.addMother("amit", "tzvia");
+    tree.addFather("tzvia", "shmuel");
+    tree.addMother("tzvia", "pnina");
+    tree.addFather("shmuel", "eliezer");
+    tree.addMother("shmuel", "ester");
+    tree.addMother("gabi", "mirela");
+    tree.addMother("pnina", "rachel");
+
+    CHECK(tree.relation("gabi").compare("father") == 0);
+    CHECK(tree.relation("tzvia").compare("mother") == 0);
+    CHECK(tree.relation("shmuel").compare("grandfather") == 0);
+    CHECK(tree.relation("pnina").compare("grandmother") == 0);
+    CHECK(tree.relation("ester").compare("great-grandmother") == 0);
+    CHECK(tree.relation("mirela").compare("grandmother") == 0);
+    CHECK(tree.relation("rachel").compare("great-grandmother") == 0);
+    CHECK(tree.relation("eliezer").compare("great-grandfather") == 0);
+
+    CHECK(tree.relation("amit").compare("me") == 0);
+
+    CHECK(tree.find("father") == "gabi");
+    CHECK(tree.find("mother") == "tzvia");
+    CHECK(tree.find("grandfather") == "shmuel");
+    CHECK(tree.find("great-grandfather") == "eliezer");
+    CHECK(tree.find("grandmother") == "pnina");
+    CHECK((tree.find("great-grandmother") == "rachel" || tree.find("great-grandmother") == "ester"));
+    CHECK(tree.find("me") == "amit");
+    tree.remove("tzvia");
+    CHECK(tree.relation("tzvia") == "unrelated");
+    CHECK(tree.relation("shmuel") == "unrelated");
+    CHECK(tree.relation("pnina") == "unrelated");
+    CHECK(tree.relation("eliezer") == "unrelated");
+    CHECK(tree.relation("ester") == "unrelated");
+    CHECK(tree.relation("rachel") == "unrelated");
+    tree.addMother("amit", "sara");
+    CHECK(tree.find("mother") == "sara");
+}
+
